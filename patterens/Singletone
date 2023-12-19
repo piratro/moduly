@@ -1,0 +1,45 @@
+
+from abc import ABC, abstractmethod
+
+class Course(ABC):
+    @abstractmethod
+    def get_course_details(self):
+        pass
+
+class University(ABC):
+    @abstractmethod
+    def create_course(self) -> Course:
+        pass
+ 
+class MathematicsCourse(Course):
+    def get_course_details(self):
+        return "Mathematics Course"
+
+class PhysicsCourse(Course):
+    def get_course_details(self):
+        return "Physics Course"
+
+class LiteratureCourse(Course):
+    def get_course_details(self):
+        return "Literature Course"
+
+class ConcreteUniversity(University):
+    def create_course(self, course_type: str) -> Course:
+        if course_type == "Mathematics":
+            return MathematicsCourse()
+        elif course_type == "Physics":
+            return PhysicsCourse()
+        elif course_type == "Literature":
+            return LiteratureCourse()
+        else:
+            raise ValueError("Invalid course type")
+
+# Клієнтський код
+university = ConcreteUniversity()
+math_course = university.create_course("Mathematics")
+physics_course = university.create_course("Physics")
+literature_course = university.create_course("Literature")
+
+print(math_course.get_course_details())
+print(physics_course.get_course_details())
+print(literature_course.get_course_details()) 
